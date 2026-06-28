@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Void Mirror | GitHub Pages Game</title>
+    <meta name="description" content="一个部署在 GitHub Pages 上的抽象猎奇小游戏。" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="game-panel" aria-label="Void Mirror game">
+        <canvas id="gameCanvas" width="960" height="640"></canvas>
+
+        <div class="hud">
+          <div><span>分数</span><strong id="score">0</strong></div>
+          <div><span>稳定度</span><strong id="stability">100</strong></div>
+          <div><span>阶段</span><strong id="phase">Normal</strong></div>
+        </div>
+
+        <div class="title-card">
+          <h1>Void Mirror</h1>
+          <p>收集梦境碎片，避开会呼吸的异常符号。镜像阶段会反转方向。</p>
+          <button id="startButton" type="button">开始漂移</button>
+        </div>
+
+        <div class="game-over" id="gameOver" hidden>
+          <h2>梦境闭合</h2>
+          <p id="finalScore">分数 0</p>
+          <button id="restartButton" type="button">重新校准</button>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <div class="brand">GitHub Pages Experiment</div>
+        <h2>抽象猎奇小游戏</h2>
+        <p>这是一个无后端、无构建依赖的静态小游戏。所有状态、碰撞、粒子和音画反馈都在浏览器本地运行。</p>
+        <ul>
+          <li>方向键 / WASD 控制移动</li>
+          <li>绿色碎片增加分数和稳定度</li>
+          <li>红色符号会吞噬稳定度</li>
+          <li>镜像阶段方向反转</li>
+        </ul>
+      </aside>
+    </main>
+
+    <script src="./game.js" type="module"></script>
+  </body>
+</html>
