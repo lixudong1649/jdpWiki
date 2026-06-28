@@ -23,8 +23,8 @@ let time = 0;
 let phase = "Normal";
 
 function resetGame() {
-  player.x = canvas.width / 2;
-  player.y = canvas.height / 2;
+  player.x = canvas.clientWidth / 2;
+  player.y = canvas.clientHeight / 2;
   shards = Array.from({ length: 9 }, spawnShard);
   hazards = Array.from({ length: 7 }, (_, index) => spawnHazard(index));
   particles = [];
@@ -39,9 +39,11 @@ function resetGame() {
 }
 
 function spawnShard() {
+  const width = canvas.clientWidth || 960;
+  const height = canvas.clientHeight || 640;
   return {
-    x: 60 + Math.random() * (canvas.width - 120),
-    y: 60 + Math.random() * (canvas.height - 120),
+    x: 60 + Math.random() * (width - 120),
+    y: 60 + Math.random() * (height - 120),
     r: 7 + Math.random() * 7,
     spin: Math.random() * Math.PI * 2,
   };
@@ -49,9 +51,11 @@ function spawnShard() {
 
 function spawnHazard(index) {
   const angle = (index / 7) * Math.PI * 2;
+  const width = canvas.clientWidth || 960;
+  const height = canvas.clientHeight || 640;
   return {
-    x: canvas.width / 2 + Math.cos(angle) * 250,
-    y: canvas.height / 2 + Math.sin(angle) * 170,
+    x: width / 2 + Math.cos(angle) * Math.min(250, width * 0.28),
+    y: height / 2 + Math.sin(angle) * Math.min(170, height * 0.24),
     r: 18 + Math.random() * 12,
     orbit: 80 + Math.random() * 210,
     speed: 0.35 + Math.random() * 0.55,
@@ -256,7 +260,12 @@ function canvasPoint(event) {
   };
 }
 
-window.addEventListener("keydown", (event) => keys.add(event.key));
+window.addEventListener("keydown", (event) => {
+  if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " "].includes(event.key)) {
+    event.preventDefault();
+  }
+  keys.add(event.key);
+});
 window.addEventListener("keyup", (event) => keys.delete(event.key));
 window.addEventListener("resize", resizeCanvas);
 canvas.addEventListener("pointerdown", (event) => {
